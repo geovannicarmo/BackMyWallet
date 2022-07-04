@@ -32,6 +32,8 @@ export async function postFinancialMovement(req,res){
 
   let day= (dayjs().format('DD/MM'))
   console.log(day)
+
+  tdbody={...tdbody, day}
   
   
   if (validation.error) {
@@ -41,9 +43,9 @@ export async function postFinancialMovement(req,res){
 
 
     await db.collection("financialMovement").insertOne({
-        idUsuario, tdbody, day
+        idUsuario, tdbody
     })
-    res.send("cadastrado com sucesso" + tdbody.type)
+    res.send("cadastrado com sucesso")
 }
 
 
