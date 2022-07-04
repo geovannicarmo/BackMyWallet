@@ -124,7 +124,7 @@ export async function logIn(req,res){
 
 
         await db.collection("sessionst").insertOne({
-            idUsuario, token
+            idUsuario, token, lastStatus: Date.now()
         })
         res.set(token);
         return res.send({token})
