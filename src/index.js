@@ -20,30 +20,30 @@ app.use(authenticationRoutee)
 app.use(routerFinancialMovement)
 app.use(routerstatus)
 
-// export default setInterval(()=>{
+export default setInterval(()=>{
 
-//     db.collection("sessionst").deleteMany({
-//             lastStatus: {$lt: Date.now()-800000}
-//         }).then(()=>{
+    db.collection("sessionst").deleteMany({
+            lastStatus: {$lt: Date.now()-20000}
+        }).then(()=>{
 
-//             db.collection("sessionst").find().toArray().then((query)=>{
-//                 console.log(query)
-//                 console.log("vaai")
-//             })
-//         })
+            db.collection("sessionst").find().toArray().then((query)=>{
+                console.log(query)
+            })
+        })
     
-// }, 100000)
+}, 1000)
 
 
 app.post('/logOut', async(req, res)=>{
 
     const token = req.headers.authorization?.replace('Bearer ', '')
+
     const userConectd = await db.collection('sessionst').findOne({
         token
     })
     
         if(!userConectd){
-            return res.send("Usuario não logado").status(400)
+            return res.status(400).send("Usuario não logado")
         }
 
     db.collection("sessionst").deleteOne({
