@@ -22,19 +22,27 @@ app.use(routerstatus)
 
 
 
-// app.get('name', async(req,res)=>{
+ app.get('/name', async(req,res)=>{
     
-//     const token = req.headers.authorization?.replace('Bearer ', '')
+     const token = req.headers.authorization?.replace('Bearer ', '')
     
-//     const userConectd = await db.collection('sessionst').findOne({
-//         token
-//     })
+     const userConectd = await db.collection('sessionst').findOne({
+         token
+     })
     
-//         if(!userConectd){
-//             return res.status(400).send("Usuario não logado")
-//         }
+         if(!userConectd){
+             return res.status(400).send("Usuario não logado")
+         }
+
+db.collection("sessionst").findOne({
+    token
+}).then((dd)=>{
+    console.log(dd)
+    return res.send(userConectd.name).status(201)
     
-// })
+})
+    
+ })
 
 
 app.post('/logOut', async(req, res)=>{
