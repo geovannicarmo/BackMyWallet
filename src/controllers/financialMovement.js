@@ -31,10 +31,10 @@ export async function postFinancialMovement(req,res){
 
 
   let day= (dayjs().format('DD/MM'))
-  console.log(day)
-
-  tdbody={...tdbody, day}
   
+  tdbody.day=day
+  
+  console.log(tdbody)
   
   if (validation.error) {
       console.log(validation.error.details[0].message)
