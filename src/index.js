@@ -20,6 +20,44 @@ app.use(authenticationRoutee)
 app.use(routerFinancialMovement)
 app.use(routerstatus)
 
+
+
+// app.get('name', async(req,res)=>{
+    
+//     const token = req.headers.authorization?.replace('Bearer ', '')
+    
+//     const userConectd = await db.collection('sessionst').findOne({
+//         token
+//     })
+    
+//         if(!userConectd){
+//             return res.status(400).send("Usuario não logado")
+//         }
+    
+// })
+
+
+app.post('/logOut', async(req, res)=>{
+    
+    const token = req.headers.authorization?.replace('Bearer ', '')
+    
+    const userConectd = await db.collection('sessionst').findOne({
+        token
+    })
+    
+        if(!userConectd){
+            return res.status(400).send("Usuario não logado")
+        }
+
+    db.collection("sessionst").deleteOne({
+        token
+    }).then(()=>{
+        return res.send("out").status(201)
+        
+    })
+    
+})
+
 // export default setInterval(()=>{
 
 //     db.collection("sessionst").deleteMany({
@@ -32,29 +70,6 @@ app.use(routerstatus)
 //         })
     
 // }, 1000)
-
-
-app.post('/logOut', async(req, res)=>{
-
-    const token = req.headers.authorization?.replace('Bearer ', '')
-
-    const userConectd = await db.collection('sessionst').findOne({
-        token
-    })
-    
-        if(!userConectd){
-            return res.status(400).send("Usuario não logado")
-        }
-
-    db.collection("sessionst").deleteOne({
-       token
-    }).then(()=>{
-        return res.send("out").status(201)
-
-    })
-
-})
-
 
 app.post('/status', async(req, res)=>{
 
