@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { db } from "./dbs/mongo.js";
 import joi from "joi";
+import dayjs from "dayjs";
 
 
 
@@ -29,7 +30,8 @@ export async function postFinancialMovement(req,res){
   const validation = userSchema.validate(req.body);
 
 
-  console.log("aa")
+  let day= (dayjs().format('DD/MM'))
+  console.log(day)
   
   
   if (validation.error) {
@@ -39,7 +41,7 @@ export async function postFinancialMovement(req,res){
 
 
     await db.collection("financialMovement").insertOne({
-        idUsuario, tdbody
+        idUsuario, tdbody, day
     })
     res.send("cadastrado com sucesso" + tdbody.type)
 }

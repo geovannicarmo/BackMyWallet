@@ -20,19 +20,19 @@ app.use(authenticationRoutee)
 app.use(routerFinancialMovement)
 app.use(routerstatus)
 
-export default setInterval(()=>{
+// export default setInterval(()=>{
 
-    db.collection("sessionst").deleteMany({
-            lastStatus: {$lt: Date.now()-800000}
-        }).then(()=>{
+//     db.collection("sessionst").deleteMany({
+//             lastStatus: {$lt: Date.now()-800000}
+//         }).then(()=>{
 
-            db.collection("sessionst").find().toArray().then((query)=>{
-                console.log(query)
-                console.log("vaai")
-            })
-        })
+//             db.collection("sessionst").find().toArray().then((query)=>{
+//                 console.log(query)
+//                 console.log("vaai")
+//             })
+//         })
     
-}, 100000)
+// }, 100000)
 
 
 app.post('/logOut', async(req, res)=>{
