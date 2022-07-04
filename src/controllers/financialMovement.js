@@ -58,3 +58,47 @@ export async function getFinancialMovement(req,res){
   let datesuserbody =  datesuser.map(moviment=>moviment.tdbody)
   res.status(201).send(datesuserbody)
 }
+
+export async function getName (req,res){
+    
+  const token = req.headers.authorization?.replace('Bearer ', '')
+ 
+  const userConectd = await db.collection('sessionst').findOne({
+      token
+  })
+ 
+      if(!userConectd){
+          return res.status(400).send("Usuario não logado")
+      }
+
+db.collection("sessionst").findOne({
+ token
+}).then((dd)=>{
+ console.log(dd)
+ return res.send(userConectd.name).status(201)
+ 
+})
+ 
+}
+
+
+export async function postlogOut(req, res){
+    
+  const token = req.headers.authorization?.replace('Bearer ', '')
+  
+  const userConectd = await db.collection('sessionst').findOne({
+      token
+  })
+  
+      if(!userConectd){
+          return res.status(400).send("Usuario não logado")
+      }
+
+  db.collection("sessionst").deleteOne({
+      token
+  }).then(()=>{
+      return res.send("out").status(201)
+      
+  })
+  
+}

@@ -22,49 +22,7 @@ app.use(routerstatus)
 
 
 
- app.get('/name', async(req,res)=>{
-    
-     const token = req.headers.authorization?.replace('Bearer ', '')
-    
-     const userConectd = await db.collection('sessionst').findOne({
-         token
-     })
-    
-         if(!userConectd){
-             return res.status(400).send("Usuario não logado")
-         }
 
-db.collection("sessionst").findOne({
-    token
-}).then((dd)=>{
-    console.log(dd)
-    return res.send(userConectd.name).status(201)
-    
-})
-    
- })
-
-
-app.post('/logOut', async(req, res)=>{
-    
-    const token = req.headers.authorization?.replace('Bearer ', '')
-    
-    const userConectd = await db.collection('sessionst').findOne({
-        token
-    })
-    
-        if(!userConectd){
-            return res.status(400).send("Usuario não logado")
-        }
-
-    db.collection("sessionst").deleteOne({
-        token
-    }).then(()=>{
-        return res.send("out").status(201)
-        
-    })
-    
-})
 
 // export default setInterval(()=>{
 
@@ -79,25 +37,25 @@ app.post('/logOut', async(req, res)=>{
     
 // }, 1000)
 
-app.post('/status', async(req, res)=>{
+// app.post('/status', async(req, res)=>{
 
-    const token = req.headers.authorization?.replace('Bearer ', '')
-    const userConectd = await db.collection('sessionst').findOne({
-        token
-    })
+//     const token = req.headers.authorization?.replace('Bearer ', '')
+//     const userConectd = await db.collection('sessionst').findOne({
+//         token
+//     })
     
-        if(!userConectd){
-            return res.status(400).send("Usuario não logado")
-        }
+//         if(!userConectd){
+//             return res.status(400).send("Usuario não logado")
+//         }
     
       
 
-        db.collection("sessionst").updateOne(
-            { token },
-             {$set: {lastStatus: Date.now()}
-            }).then(()=>res.sendStatus(200))
+//         db.collection("sessionst").updateOne(
+//             { token },
+//              {$set: {lastStatus: Date.now()}
+//             }).then(()=>res.sendStatus(200))
         
-    })
+//     })
 
 
 
