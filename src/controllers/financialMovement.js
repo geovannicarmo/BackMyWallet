@@ -27,6 +27,9 @@ export async function postFinancialMovement(req,res){
   
   
   const validation = userSchema.validate(req.body);
+
+
+  console.log("aa")
   
   
   if (validation.error) {
